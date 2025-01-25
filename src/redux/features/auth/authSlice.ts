@@ -1,5 +1,6 @@
+import { RootState } from "@/redux/store";
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "@reduxjs/toolkit/query";
+
 
 const initialState = {
     user: null,
