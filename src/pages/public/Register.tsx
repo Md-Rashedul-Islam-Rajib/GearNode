@@ -1,15 +1,16 @@
-import { formSchema, FormValues } from "@/types/form.types"
+import {  registerformSchema, RegisterFormValues } from "@/types/form.types"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { uploadImage } from "@/utilities/imageUploader";
 
 
 const Register = () => {
 
-    const form = useForm<FormValues>({
-        resolver: zodResolver(formSchema),
+    const form = useForm<RegisterFormValues>({
+        resolver: zodResolver(registerformSchema),
         defaultValues: {
             name: "",
             email: "",
@@ -18,25 +19,10 @@ const Register = () => {
         }
     });
 
-    const uploadImage = async (file: File) => {
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("upload_preset", "pzk6cmri"); //preset_name
-      formData.append("cloud_name", "dbe3ewhey"); //cloud_name
+    
 
-      const res = await fetch(
-        "https://api.cloudinary.com/v1_1/dbe3ewhey/image/upload",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-      const data = await res.json();
-      return data.secure_url;
-    };
-
-    const onSubmit = async (data: FormValues) => {
-        console.log(data)
+    const onSubmit = async (data: RegisterFormValues) => {
+        // console.log(data)
         try {
           let imageUrl = null;
           if (data.image) {
@@ -84,70 +70,84 @@ const Register = () => {
     }
 
   return (
-    <div>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name : </FormLabel>
-                <FormControl>
-                  <Input autoComplete="name" placeholder="Name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email : </FormLabel>
-                <FormControl>
-                  <Input autoComplete="email" placeholder="Email" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+    <div className=" p-4 md:p-0">
+        
+      <h1 className="text-3xl text-center mb-6"> Register</h1>
+      <div className="flex justify-center h-screen">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <FormField
+                          control={form.control}
+                          
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name : </FormLabel>
+                  <FormControl>
+                    <Input autoComplete="name" placeholder="Name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email : </FormLabel>
+                  <FormControl>
+                    <Input
+                      autoComplete="email"
+                      placeholder="Email"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="image"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Image : </FormLabel>
-                <FormControl>
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => field.onChange(e.target.files?.[0])}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password : </FormLabel>
-                <FormControl>
-                  <Input autoComplete="password" placeholder="Password" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-                  />
-                  
-                  <Button type="submit">Register</Button>
-        </form>
-      </Form>
+            <FormField
+              control={form.control}
+              name="image"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Image : </FormLabel>
+                  <FormControl>
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => field.onChange(e.target.files?.[0])}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password : </FormLabel>
+                  <FormControl>
+                          <Input
+                              type="password"
+                      autoComplete="password"
+                      placeholder="Password"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <Button className="my-4" type="submit">Register</Button>
+          </form>
+        </Form>
+      </div>
     </div>
   );
 }
