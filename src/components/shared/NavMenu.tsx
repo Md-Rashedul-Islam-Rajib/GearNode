@@ -11,6 +11,7 @@ const NavMenu = () => {
       <NavigationMenu>
         <NavigationMenuList className="space-x-6 text-white font-semibold">
           <NavigationMenuItem className={navStyle}>About</NavigationMenuItem>
+          <NavigationMenuItem className={navStyle}>Dashboard</NavigationMenuItem>
           <NavigationMenuItem className={navStyle}>
             All Products
           </NavigationMenuItem>
