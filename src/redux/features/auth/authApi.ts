@@ -1,3 +1,4 @@
+import { RegisterFormValues } from "@/types/form.types";
 import { baseApi } from "../../api/baseApi";
 
 const authApi = baseApi.injectEndpoints({
@@ -9,7 +10,14 @@ const authApi = baseApi.injectEndpoints({
         body: userInfo,
       }),
     }),
+    registerUser: builder.mutation({
+      query: (data: RegisterFormValues) => ({
+        url: "auth/register",
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation } = authApi;
+export const { useLoginMutation, useRegisterUserMutation } = authApi;

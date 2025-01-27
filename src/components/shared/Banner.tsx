@@ -1,7 +1,6 @@
 import React from "react";
 import Autoplay from "embla-carousel-autoplay";
 import image1 from "../../assets/banner/image-1.jpg";
-import image2 from "../../assets/banner/image-2.jpg";
 import image3 from "../../assets/banner/image-3.jpg";
 import image4 from "../../assets/banner/image-4.jpg";
 import image5 from "../../assets/banner/image-5.jpg";
@@ -26,7 +25,6 @@ export function Banner() {
   // Array of images
   const images = [
     image1,
-    image2,
     image3,
     image4,
     image5,

@@ -6,11 +6,13 @@ import { currentUser, logout } from "@/redux/features/auth/authSlice";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { InteractiveHoverButton } from "../ui/interactive-hover-button";
+import { useNavigate } from "react-router";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const user = useSelector(currentUser); // Select current user from the state
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // State for mobile menu
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const navigate = useNavigate();  // State for mobile menu
 
   const handleLogout = () => {
     dispatch(logout());
@@ -18,7 +20,7 @@ const Navbar = () => {
   };
 
   const handleLogin = () => {
-    console.log("Redirect to login page");
+      navigate('/login');
   };
 
   return (
@@ -26,7 +28,7 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between px-5 py-4">
         {/* Logo */}
         <div>
-          <img src={logo} alt="Logo" className="w-36 sm:w-52" />
+          <img src={logo} alt="Logo" className="w-36 md:w-[130px] lg:w-52" />
         </div>
 
         {/* Menu for Large Screens */}
