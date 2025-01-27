@@ -5,8 +5,20 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { MagicCard } from "../ui/magic-card";
+interface TProduct {
+  name: string;
+  brand: string;
+  category: string;
+  model: string;
+  description: string;
+  price: string | number;
+  quantity: string | number;
+  image: string;
+  inStock: boolean | undefined;
+  isDeleted?: boolean;
+}
 
-const FeaturedCard = ({ item }) => {
+const FeaturedCard: React.FC<{ item: TProduct }> = ({ item }) => {
   return (
     <MagicCard
       className="flex-col items-center text-center p-4 rounded-2xl shadow-lg transition-transform transform hover:scale-105"
