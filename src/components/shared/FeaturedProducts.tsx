@@ -1,7 +1,8 @@
 import { useGetAllProductsQuery } from "@/redux/features/products/productApi"
 import FeaturedCard from "./FeaturedCard";
-import { TProduct } from "@/types/form.types";
+
 import { Button } from "../ui/button";
+import { TProduct } from "@/types/form.types";
 
 
 const FeaturedProducts = () => {

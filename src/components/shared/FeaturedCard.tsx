@@ -5,20 +5,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { MagicCard } from "../ui/magic-card";
-interface TProduct {
-  name: string;
-  brand: string;
-  category: string;
-  model: string;
-  description: string;
-  price: string | number;
-  quantity: string | number;
-  image: string;
-  inStock: boolean | undefined;
-  isDeleted?: boolean;
-}
+import { TProduct } from "@/types/form.types";
+
 
 const FeaturedCard: React.FC<{ item: TProduct }> = ({ item }) => {
+   const imageSrc =
+     item?.image instanceof File
+       ? URL.createObjectURL(item.image)
+       : item?.image;
   return (
     <MagicCard
       className="flex-col items-center text-center p-4 rounded-2xl shadow-lg transition-transform transform hover:scale-105"
@@ -36,7 +30,7 @@ const FeaturedCard: React.FC<{ item: TProduct }> = ({ item }) => {
       <CardContent className="p-4">
         {item?.image ? (
           <img
-            src={item.image}
+            src={imageSrc}
             alt={item.name}
             className="w-full h-48 object-cover rounded-lg mb-4"
           />
