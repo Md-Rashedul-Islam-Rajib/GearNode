@@ -1,14 +1,15 @@
 import React from "react";
 import Autoplay from "embla-carousel-autoplay";
-import image1 from "../../assets/banner/image-1.jpg";
-import image3 from "../../assets/banner/image-3.jpg";
-import image4 from "../../assets/banner/image-4.jpg";
-import image5 from "../../assets/banner/image-5.jpg";
-import image6 from "../../assets/banner/image-6.jpg";
-import image7 from "../../assets/banner/image-7.jpg";
-import image8 from "../../assets/banner/image-8.jpg";
+import image1 from "../../../public/assets/banner/image-1.jpg";
+import image3 from "../../../public/assets/banner/image-3.jpg";
+import image4 from "../../../public/assets/banner/image-4.jpg";
+import image5 from "../../../public/assets/banner/image-5.jpg";
+import image6 from "../../../public/assets/banner/image-6.jpg";
+import image7 from "../../../public/assets/banner/image-7.jpg";
+import image8 from "../../../public/assets/banner/image-8.jpg";
 
-import { Card, CardContent } from "@/components/ui/card";
+
+import { CardContent } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
@@ -44,20 +45,20 @@ export function Banner() {
         {images.map((imgSrc, index) => (
           <CarouselItem key={index}>
             <div className="">
-              <Card className="overflow-hidden">
+              
                 <CardContent className="">
                   <img
                     src={imgSrc}
                     alt={`Banner ${index + 1}`}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-xl mt-6"
                   />
                 </CardContent>
-              </Card>
+              
             </div>
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
+      <CarouselPrevious/>
       <CarouselNext />
     </Carousel>
   );

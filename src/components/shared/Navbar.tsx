@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../ui/button";
 import NavMenu from "./NavMenu";
-import logo from "@/assets/logo-2.png";
+import logo from "../../../public/assets/logo-2.png";
 import { currentUser, logout } from "@/redux/features/auth/authSlice";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";

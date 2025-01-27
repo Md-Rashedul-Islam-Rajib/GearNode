@@ -1,4 +1,6 @@
 import Banner from '@/components/shared/Banner'
+import ExtraSection from '@/components/shared/ExtraSection'
+import FeaturedProducts from '@/components/shared/FeaturedProducts'
 import Navbar from '@/components/shared/Navbar'
 
 
@@ -6,7 +8,13 @@ const Home = () => {
   return (
     <div>
           <Navbar />
-          <Banner />
+      <div className="my-4">
+      <Banner />
+      </div>
+      <FeaturedProducts />
+      <div className="my-8">
+      <ExtraSection />
+      </div>
     </div>
   )
 }

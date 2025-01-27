@@ -51,16 +51,17 @@ export const productZodSchema = z.object({
   }),
 });
 
-export interface ProductFormValues {
+export interface TProduct {
   name: string;
   brand: string;
   category: string ; 
   model: string;
   description: string;
-  price: string; 
-  quantity: string; 
+  price: string| number; 
+  quantity: string | number; 
   image: File | null;
   inStock: boolean | undefined;
+  isDeleted?: boolean;
 }
 
 export type RegisterFormValues = z.infer<typeof registerformSchema>;

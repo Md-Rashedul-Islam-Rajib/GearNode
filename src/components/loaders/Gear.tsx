@@ -1,5 +1,5 @@
 import Lottie from "lottie-react";
-import gear from "../../assets/loaders/Gear.json"
+import gear from "../../../public/assets/loaders/Gear.json"
 
 const Gear = () => {
   return (

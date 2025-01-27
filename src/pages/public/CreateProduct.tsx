@@ -1,4 +1,4 @@
-import { ProductFormValues, productZodSchema } from "@/types/form.types";
+import { TProduct, productZodSchema } from "@/types/form.types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -13,12 +13,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { uploadImage } from "@/utilities/imageUploader";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useState } from "react";
 import Gear from "@/components/loaders/Gear";
+import { useCreateProductMutation } from "@/redux/features/products/productApi";
 
 const CreateProduct = () => {
-    const [loading, setLoading] = useState(false);
-  const form = useForm<ProductFormValues>({
+   
+  const [createProduct, {isLoading }] = useCreateProductMutation();
+  const form = useForm<TProduct>({
     resolver: zodResolver(productZodSchema),
     defaultValues: {
         name: "",
@@ -34,9 +35,8 @@ const CreateProduct = () => {
     },
   });
 
-  const onSubmit = async (data: ProductFormValues) => {
-      console.log(data)
-      setLoading(true);
+  const onSubmit = async (data: TProduct) => {
+    console.log(data)
     try {
       let imageUrl = null;
       if (data.image) {
@@ -49,46 +49,25 @@ const CreateProduct = () => {
           console.error("Error uploading image:", error);
           return;
         }
-        }
+      }
         
-        const convertedPrice = Number(data.price);
-        const convertedQuantity = Number(data.quantity);
+      const convertedPrice = Number(data.price);
+      const convertedQuantity = Number(data.quantity);
 
-      const productInfo = { ...data, image: imageUrl, price: convertedPrice,quantity: convertedQuantity };
+      const productInfo = { ...data, image: imageUrl, price: convertedPrice, quantity: convertedQuantity };
       console.log("Product Info:", productInfo);
 
       // Send the form data, including the image URL, to the API
       if (!productInfo.image) {
         throw new Error("image is required");
       }
-      const res = await fetch("http://localhost:5000/products/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(productInfo),
-      });
-
-      if (res.ok) {
-        const result = await res.json();
-          console.log("User Created:", result);
-          setLoading(false);
-          form.reset();
-      } else {
-        const error = await res.json();
-          console.error("Error:", error.message);
-          setLoading(false);
-          
-      }
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.error("Error submitting form:", error);
-      } else {
-        console.error("Unknown error occurred:", error);
-      }
-    }
-  };
-
+      await createProduct(productInfo).unwrap();
+      form.reset();
+      
+    } catch (err) {
+      console.log(err)
+    };
+  }
   return (
     <div className=" p-4 md:p-0">
       <h1 className="text-3xl text-center mb-6"> Create Product</h1>
@@ -277,9 +256,9 @@ const CreateProduct = () => {
             <Button
               className="my-4 flex items-center justify-center gap-2"
               type="submit"
-              disabled={loading}
+              disabled={isLoading}
             >
-              {loading ? (
+              {isLoading ? (
                 <div className="flex items-center gap-2">
                   <span>Creating...</span>
                   <Gear />
