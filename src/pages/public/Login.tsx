@@ -17,10 +17,12 @@ import { User } from "@/types/auth.types";
 import { tokenDecoder } from "@/utilities/tokenDecoder";
 import { toast } from "sonner";
 import { signin } from "@/redux/features/auth/authSlice";
+import Gear from "@/components/loaders/Gear";
+// import { useEffect } from "react";
 
 const Login = () => {
   const dispatch = useAppDispatch();
-  const [login, { error }] = useLoginMutation();
+  const [login, { error,isLoading }] = useLoginMutation();
   console.log(error);
 
   const form = useForm<LoginFormValues>({
@@ -45,6 +47,17 @@ const Login = () => {
       console.log(error);
     }
   };
+
+  //  useEffect(() => {
+  //     if (isSuccess) {
+  //       toast.success("User Logged in successfully!");
+  //     } else if (isError) {
+  //       const errorMessage =
+  //         (error as { data: { message: string } })?.data?.message ||
+  //         "Something went wrong!";
+  //       toast.error(errorMessage);
+  //     }
+  //   }, [error,isError,isSuccess]);
 
   return (
     <div className=" p-4 md:p-0">
@@ -89,8 +102,19 @@ const Login = () => {
               )}
             />
 
-            <Button className="my-4" type="submit">
-              Log In
+            <Button
+              className="my-4 flex items-center justify-center gap-2"
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <div className="flex items-center gap-2">
+                  <span>Logging...</span>
+                  <Gear />
+                </div>
+              ) : (
+                "Log In"
+              )}
             </Button>
           </form>
         </Form>

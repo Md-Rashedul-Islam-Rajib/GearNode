@@ -10,7 +10,7 @@ const ExtraSection = () => {
       <img
         src={warranty}
         alt="Warranty details"
-        className="w-full max-w-3xl mx-auto mb-8"
+        className="w-full max-w-7xl mx-auto mb-8"
       />
 
       {/* Title */}

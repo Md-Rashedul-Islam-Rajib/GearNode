@@ -13,9 +13,12 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { uploadImage } from "@/utilities/imageUploader";
 import { useRegisterUserMutation } from "@/redux/features/auth/authApi";
+import Gear from "@/components/loaders/Gear";
+import { toast } from "sonner";
+import { useEffect } from "react";
 
 const Register = () => {
-  const [register, { error }] = useRegisterUserMutation();
+  const [register, { error,isLoading,isSuccess,isError }] = useRegisterUserMutation();
   console.log(error);
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerformSchema),
@@ -48,10 +51,22 @@ const Register = () => {
         throw new Error("image is required");
       }
       await register(userInfo).unwrap();
+      form.reset();
     } catch (error) {
       console.error("Error in registration:", error);
     }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("User registered successfully!");
+    } else if (isError) {
+      const errorMessage =
+        (error as { data: { message: string } })?.data?.message ||
+        "Something went wrong!";
+      toast.error(errorMessage);
+    }
+  }, [error,isError,isSuccess]);
 
   return (
     <div className="p-4 md:p-0">
@@ -124,8 +139,19 @@ const Register = () => {
                 </FormItem>
               )}
             />
-            <Button className="my-4" type="submit">
-              Register
+            <Button
+              className="my-4 flex items-center justify-center gap-2"
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <div className="flex items-center gap-2">
+                  <span>Registering...</span>
+                  <Gear />
+                </div>
+              ) : (
+                "Register"
+              )}
             </Button>
           </form>
         </Form>

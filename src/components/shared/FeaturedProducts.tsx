@@ -10,7 +10,8 @@ const FeaturedProducts = () => {
     
     console.log(isLoading);
     console.log(isFetching);
-    const products = data?.data;
+  const products = data?.data;
+  console.log(products)
   
     return (
       <div>

@@ -29,11 +29,13 @@ const FeaturedCard: React.FC<{ item: TProduct }> = ({ item }) => {
       </CardHeader>
       <CardContent className="p-4">
         {item?.image ? (
-          <img
-            src={imageSrc!}
-            alt={item.name}
-            className="w-full h-48 object-cover rounded-lg mb-4"
-          />
+          <figure className="relative bg-transparent">
+            <img
+              src={imageSrc!}
+              alt={item.name}
+              className="w-full mix-blend-multiply h-48 object-cover rounded-lg mb-4"
+            />
+          </figure>
         ) : (
           <div className="w-full h-48 bg-gray-100 rounded-lg flex items-center justify-center text-gray-500">
             No Image

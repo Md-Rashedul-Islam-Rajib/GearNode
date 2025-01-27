@@ -45,21 +45,19 @@ export function Banner() {
         {images.map((imgSrc, index) => (
           <CarouselItem key={index}>
             <div className="">
-              
-                <CardContent className="">
-                  <img
-                    src={imgSrc}
-                    alt={`Banner ${index + 1}`}
-                    className="w-full h-full object-cover rounded-xl mt-6"
-                  />
-                </CardContent>
-              
+              <CardContent className="aspect-[16/9]">
+                <img
+                  src={imgSrc}
+                  alt={`Banner ${index + 1}`}
+                  className="w-full h-full object-cover rounded-xl mt-6"
+                />
+              </CardContent>
             </div>
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious/>
-      <CarouselNext />
+      {/* <CarouselPrevious />
+      <CarouselNext /> */}
     </Carousel>
   );
 }
