@@ -1,7 +1,7 @@
-import { ProductFormValues } from "@/types/form.types";
+import {  TProduct } from "@/types/form.types";
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState: ProductFormValues[] = [];
+const initialState: TProduct[] = [];
 
 const productSlice = createSlice({
     name: 'product',

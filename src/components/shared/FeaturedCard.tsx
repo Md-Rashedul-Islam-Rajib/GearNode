@@ -30,7 +30,7 @@ const FeaturedCard: React.FC<{ item: TProduct }> = ({ item }) => {
       <CardContent className="p-4">
         {item?.image ? (
           <img
-            src={imageSrc}
+            src={imageSrc!}
             alt={item.name}
             className="w-full h-48 object-cover rounded-lg mb-4"
           />

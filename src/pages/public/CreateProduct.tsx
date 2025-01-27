@@ -42,7 +42,7 @@ const CreateProduct = () => {
       if (data.image) {
         console.log("Uploading image...");
         try {
-          imageUrl = await uploadImage(data?.image);
+          imageUrl = await uploadImage(data?.image as File);
 
           console.log("Uploaded image URL:", imageUrl);
         } catch (error: unknown) {

@@ -59,7 +59,7 @@ export interface TProduct {
   description: string;
   price: string| number; 
   quantity: string | number; 
-  image: string | File ;
+  image: string | File | null;
   inStock: boolean | undefined;
   isDeleted?: boolean;
 }
