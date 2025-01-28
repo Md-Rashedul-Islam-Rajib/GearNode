@@ -52,6 +52,7 @@ export const productZodSchema = z.object({
 });
 
 export interface TProduct {
+  _id?: string;
   name: string;
   brand: string;
   category: string ; 
