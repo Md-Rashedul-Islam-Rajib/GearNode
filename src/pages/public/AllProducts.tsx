@@ -11,42 +11,36 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
-
+// import { generateQueryParams } from "nhb-toolbox";
 
 const AllProducts = () => {
+  const [search, setSearch] = useState("");
+  const [minPrice, setMinPrice] = useState<number>(0);
+  const [maxPrice, setMaxPrice] = useState<number>(700000);
+  const [brand, setBrand] = useState("");
+  const [category, setCategory] = useState("");
+  const [availability, setAvailability] = useState("");
+
+  const queryArgs = [
+    { name: "search", value: search },
+    // { name: "minPrice", value: minPrice },
+    // { name: "maxPrice", value: maxPrice },
+    { name: "brand", value: brand },
+    { name: "category", value: category },
+    { name: "inStock", value: availability },
+  ].filter((arg) => arg.value !== ""&& arg.value !== "all"  && arg.value !== null);
 
 
-     const [searchTerm, setSearchTerm] = useState("");
-     const [minPrice, setMinPrice] = useState<number>(0);
-     const [maxPrice, setMaxPrice] = useState<number>(500000); // Example upper limit
-     const [brand, setBrand] = useState("all");
-     const [category, setCategory] = useState("all");
-    const [availability, setAvailability] = useState("all");
+  const { data, isLoading, isFetching } = useGetAllProductsQuery(queryArgs, {
+    // skip: true,
+  });
+  // const {data, isLoading,isFetching} = useGetAllProductsQuery(undefined);
 
-    
-    
-    //  const queryArgs = [
-    //    { name: "search", value: searchTerm },
-    //    { name: "minPrice", value: minPrice },
-    //    { name: "maxPrice", value: maxPrice },
-    //    { name: "brand", value: brand },
-    //    { name: "category", value: category },
-    //    { name: "availability", value: availability },
-    //  ].filter((arg) => arg.value !== "" && arg.value !== null);
+  console.log(isLoading);
+  console.log(isFetching);
+  const products = data?.data;
 
-    // const shouldFetch = queryArgs.length > 0;
-    
-    // const {data, isLoading,isFetching} = useGetAllProductsQuery(queryArgs,{skip: !shouldFetch});
-    const {data, isLoading,isFetching} = useGetAllProductsQuery(undefined);
-        
-        console.log(isLoading);
-        console.log(isFetching);
-      const products = data?.data;
-
-     const brands = [
-       "all",
-       ...new Set(products?.map((product) => product.brand)),
-     ];
+  const brands = ["all", ...new Set(products?.map((product) => product.brand))];
 
   return (
     <div>
@@ -59,8 +53,8 @@ const AllProducts = () => {
           <Input
             type="text"
             placeholder="Search by brand, name, or category..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
         </div>
 
@@ -68,10 +62,10 @@ const AllProducts = () => {
         <div className="w-full md:w-1/3">
           <p className="mb-2 text-gray-700">Price Range:</p>
           <Slider
-            defaultValue={[0, 500000]}
+            defaultValue={[0, 700000]}
             min={0}
-            max={500000}
-            step={1000}
+            max={700000}
+            step={500}
             onValueChange={(value) => {
               setMinPrice(value[0]);
               setMaxPrice(value[1]);
@@ -106,7 +100,7 @@ const AllProducts = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Categories</SelectItem>
-              <SelectItem value="scooter">Scooter</SelectItem>
+              <SelectItem value="Scooter">Scooter</SelectItem>
               <SelectItem value="road">Road</SelectItem>
               <SelectItem value="mountain">Mountain</SelectItem>
               <SelectItem value="hybrid">Hybrid</SelectItem>
@@ -134,6 +128,6 @@ const AllProducts = () => {
       </div>
     </div>
   );
-}
+};
 
-export default AllProducts
+export default AllProducts;

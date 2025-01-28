@@ -6,7 +6,7 @@ import { currentUser, logout } from "@/redux/features/auth/authSlice";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { InteractiveHoverButton } from "../ui/interactive-hover-button";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -28,7 +28,9 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between px-5 py-4">
         {/* Logo */}
         <div>
-          <img src={logo} alt="Logo" className="w-36 md:w-[130px] lg:w-52" />
+          <Link to={'/'}>
+            <img src={logo} alt="Logo" className="w-36 md:w-[130px] lg:w-52" />
+          </Link>
         </div>
 
         {/* Menu for Large Screens */}
