@@ -16,7 +16,7 @@ const Footer = () => {
           </div>
         </div>
         {/* About Us Section */}
-        <div>
+        {/* <div>
           <h2 className="text-xl font-bold mb-4">ABOUT US</h2>
           <p className="text-sm">
             We at GearNode dream of a better world where people, technology, and
@@ -41,7 +41,7 @@ const Footer = () => {
               <i className="fab fa-youtube"></i>
             </a>
           </div>
-        </div>
+        </div> */}
 
         {/* Talk to Us Section */}
         <div>
