@@ -10,9 +10,9 @@ import { Link, useNavigate } from "react-router";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const user = useSelector(currentUser); // Select current user from the state
+  const user = useSelector(currentUser); 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const navigate = useNavigate();  // State for mobile menu
+    const navigate = useNavigate();  
 
   const handleLogout = () => {
     dispatch(logout());

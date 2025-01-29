@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useGetAllProductsQuery } from "@/redux/features/products/productApi";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
+import { toast } from "sonner";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -8,6 +9,14 @@ const ProductDetail = () => {
   const otherProducts = data?.data?.filter((item) => item._id !== id);
   const product = data?.data?.find((item) => item._id === id);
 
+  const navigate = useNavigate();
+  const handleBuyNow = () => {
+    if (!product?.inStock) {
+      toast.error("This product is out of stock.");
+      return;
+    }
+    navigate(`/checkout/${id}`);
+  };
   const imageSrc =
     product?.image instanceof File
       ? URL.createObjectURL(product.image)
@@ -43,9 +52,12 @@ const ProductDetail = () => {
           <Button className="w-full md:w-auto m-4" size="lg">
             Add to Cart
           </Button>
-          <Link to={`/checkout/${id}`}>
-            <Button className="w-full md:w-auto bg-slate-700">Buy Now</Button>
-          </Link>
+          <Button
+            onClick={handleBuyNow}
+            className="w-full md:w-auto bg-slate-700"
+          >
+            Buy Now
+          </Button>
           {/* Product Details */}
           <div className="mt-8 hidden md:grid">
             <h3 className="text-2xl font-bold mb-4">Product Details</h3>
