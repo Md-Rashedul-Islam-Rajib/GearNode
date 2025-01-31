@@ -3,9 +3,12 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
+import { currentUser } from "@/redux/features/auth/authSlice";
+import { useAppSelector } from "@/redux/hooks";
 import { NavLink } from "react-router";
 
 const NavMenu = () => {
+  const user = useAppSelector(currentUser);
     const navStyle ="hover:bg-white hover:text-zinc-700  hover:rounded-xl hover:py-1 hover: px-2 "
   return (
     <div>
@@ -15,12 +18,19 @@ const NavMenu = () => {
             <NavigationMenuItem className={navStyle}>About</NavigationMenuItem>
           </NavLink>
 
-          <NavigationMenuItem className={navStyle}>
-            Dashboard
-          </NavigationMenuItem>
-          <NavigationMenuItem className={navStyle}>
-            All Products
-          </NavigationMenuItem>
+          {user && (
+            <NavLink to={`/${user?.role}`}>
+              <NavigationMenuItem className={navStyle}>
+                Dashboard
+              </NavigationMenuItem>
+            </NavLink>
+          )}
+
+          <NavLink to={"/all-products"}>
+            <NavigationMenuItem className={navStyle}>
+              All Products
+            </NavigationMenuItem>
+          </NavLink>
           {/* <NavigationMenuItem className={navStyle}>Contact</NavigationMenuItem> */}
         </NavigationMenuList>
       </NavigationMenu>

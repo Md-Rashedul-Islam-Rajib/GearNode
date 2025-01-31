@@ -1,4 +1,4 @@
-import ProductCard from "@/components/shared/ProductCard";
+
 import { useGetAllProductsQuery } from "@/redux/features/products/productApi";
 import { TProduct } from "@/types/form.types";
 import { Input } from "@/components/ui/input";
@@ -12,9 +12,10 @@ import {
 } from "@/components/ui/select";
 import { useState } from "react";
 import Bike from "@/components/loaders/Bike";
+import AdminProductCard from "@/components/shared/AdminProductCard";
 // import { generateQueryParams } from "nhb-toolbox";
 
-const AllProducts = () => {
+const AdminAllProducts = () => {
   const [search, setSearch] = useState("");
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(700000);
@@ -132,11 +133,11 @@ const AllProducts = () => {
       </div>
       <div className="grid lg:grid-cols-4 gap-6 justify-items-center p-10">
         {products?.map((item: TProduct) => (
-          <ProductCard key={item?.name} item={item} />
+          <AdminProductCard key={item?.name} item={item} />
         ))}
       </div>
     </div>
   );
 };
 
-export default AllProducts;
+export default AdminAllProducts;

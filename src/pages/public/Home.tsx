@@ -8,6 +8,7 @@ import FeaturedProducts from '@/components/shared/FeaturedProducts'
 const Home = () => {
   return (
     <div>
+      
           {/* <Navbar /> */}
       <div className="my-4">
       <Banner />

@@ -18,106 +18,123 @@ import { tokenDecoder } from "@/utilities/tokenDecoder";
 import { toast } from "sonner";
 import { signin } from "@/redux/features/auth/authSlice";
 import Gear from "@/components/loaders/Gear";
-// import { useEffect } from "react";
+import { useNavigate } from "react-router";
+import { Link } from "react-router";
 
 const Login = () => {
   const dispatch = useAppDispatch();
-  const [login, { error,isLoading }] = useLoginMutation();
-  console.log(error);
+  const navigate = useNavigate();
+  const [login, { isLoading }] = useLoginMutation();
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginformSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+    defaultValues: { email: "", password: "" },
   });
 
   const onSubmit = async (data: LoginFormValues) => {
-    console.log(data);
-    const toastId = toast.loading("logging in");
+    const toastId = toast.loading("Logging in...");
     try {
       const res = await login(data).unwrap();
       const user = tokenDecoder(res?.data?.token as string) as User;
       dispatch(signin({ user, token: res.data.token }));
-      toast.success("logged In", { id: toastId, duration: 2000 });
-      //  navigate(`/${user?.role}/dashboard`);
+      toast.success("Logged in successfully!", { id: toastId });
+      navigate(`/${user?.role}`);
     } catch (error) {
-      toast.error("something went wrong", { id: toastId, duration: 2000 });
-      console.log(error);
+      toast.error("Invalid email or password!", { id: toastId });
     }
   };
 
-  //  useEffect(() => {
-  //     if (isSuccess) {
-  //       toast.success("User Logged in successfully!");
-  //     } else if (isError) {
-  //       const errorMessage =
-  //         (error as { data: { message: string } })?.data?.message ||
-  //         "Something went wrong!";
-  //       toast.error(errorMessage);
-  //     }
-  //   }, [error,isError,isSuccess]);
-
   return (
-    <div className=" p-4 md:p-0">
-      <h1 className="text-3xl text-center mb-6"> Log In</h1>
-      <div className="flex justify-center h-screen">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email : </FormLabel>
-                  <FormControl>
-                    <Input
-                      autoComplete="email"
-                      placeholder="Email"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+    <div className="relative min-h-screen bg-[url('/assets/login.jpg')] bg-cover bg-center flex justify-center items-center text-white px-6">
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-gray-950/70"></div>
 
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password : </FormLabel>
-                  <FormControl>
-                    <Input
-                      type="password"
-                      autoComplete="password"
-                      placeholder="Password"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+      <div className="relative z-10 my-6 md:my-0 grid grid-cols-1 rounded-xl items-center">
 
-            <Button
-              className="my-4 flex items-center justify-center gap-2"
-              type="submit"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <div className="flex items-center gap-2">
-                  <span>Logging...</span>
-                  <Gear />
-                </div>
-              ) : (
-                "Log In"
-              )}
-            </Button>
-          </form>
-        </Form>
+
+        <div className="flex items-center justify-center ">
+          <div className="w-full max-w-md p-8 space-y-6 bg-gray-300 dark:bg-gray-800 shadow-lg rounded-2xl">
+            <h2 className="text-3xl font-bold text-center text-gray-800 dark:text-white">
+              Welcome Back
+            </h2>
+            <p className="text-center text-gray-500 dark:text-gray-400">
+              Please enter your details
+            </p>
+
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-4"
+              >
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-gray-700 dark:text-gray-300">
+                        Email
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="Enter your email"
+                          className="dark:bg-gray-700"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-gray-700 dark:text-gray-300">
+                        Password
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          type="password"
+                          placeholder="Enter your password"
+                          className="dark:bg-gray-700"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <Button
+                  type="submit"
+                  className="w-full flex items-center justify-center gap-2"
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <>
+                      <span>Logging in...</span>
+                      <Gear />
+                    </>
+                  ) : (
+                    "Log In"
+                  )}
+                </Button>
+              </form>
+            </Form>
+
+            <p className="text-center text-gray-500 dark:text-gray-400">
+              Don't have an account?{" "}
+              <Link
+                to="/register"
+                className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline"
+              >
+                Register
+              </Link>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

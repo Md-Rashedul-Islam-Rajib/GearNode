@@ -1,13 +1,21 @@
+import Bike from "@/components/loaders/Bike";
 import { Button } from "@/components/ui/button";
-import { useGetAllProductsQuery } from "@/redux/features/products/productApi";
+import { currentUser } from "@/redux/features/auth/authSlice";
+import { useGetAllProductsQuery, useGetSingleProductQuery } from "@/redux/features/products/productApi";
+import { useAppSelector } from "@/redux/hooks";
 import { Link, useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 
 const ProductDetail = () => {
+
+  
   const { id } = useParams();
-  const { data } = useGetAllProductsQuery(undefined);
-  const otherProducts = data?.data?.filter((item) => item._id !== id);
-  const product = data?.data?.find((item) => item._id === id);
+  const { data, isLoading } = useGetSingleProductQuery(id);
+  const { allData } = useGetAllProductsQuery(undefined);
+  const otherProducts = allData?.data?.filter((item) => item._id !== id);
+  console.log(otherProducts)
+  const product = data?.data
+  const user = useAppSelector(currentUser);
 
   const navigate = useNavigate();
   const handleBuyNow = () => {
@@ -15,13 +23,25 @@ const ProductDetail = () => {
       toast.error("This product is out of stock.");
       return;
     }
-    navigate(`/checkout/${id}`);
+    if (user?.role !== "customer") {
+      toast.warning("Admin can't create orders")
+    }
+    navigate(`/customer/checkout/${id}`);
   };
   const imageSrc =
     product?.image instanceof File
       ? URL.createObjectURL(product.image)
       : product?.image ?? undefined;
 
+  
+    if (isLoading) {
+      return (
+        <div className="flex justify-center items-center">
+          <Bike />
+        </div>
+      );
+    }
+  
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Hero Section */}
@@ -49,9 +69,9 @@ const ProductDetail = () => {
             {product?.inStock ? "In Stock" : "Out of Stock"} -{" "}
             {product?.quantity} available
           </p>
-          <Button className="w-full md:w-auto m-4" size="lg">
+          {/* <Button className="w-full md:w-auto m-4" size="lg">
             Add to Cart
-          </Button>
+          </Button> */}
           <Button
             onClick={handleBuyNow}
             className="w-full md:w-auto bg-slate-700"
@@ -142,6 +162,8 @@ const ProductDetail = () => {
           ))}
         </div>
       </div>
+
+
     </div>
   );
 };

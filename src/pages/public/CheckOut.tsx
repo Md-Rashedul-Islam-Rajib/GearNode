@@ -1,23 +1,30 @@
 import { useState } from "react";
-import { useParams } from "react-router";
-import { useGetAllProductsQuery } from "@/redux/features/products/productApi";
+import { useNavigate, useParams } from "react-router";
+import { useGetAllProductsQuery, useGetSingleProductQuery } from "@/redux/features/products/productApi";
 import { useSelector } from "react-redux";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
 import { currentUser } from "@/redux/features/auth/authSlice";
 import { User } from "@/types/auth.types";
+import { useCreateOrderMutation } from "@/redux/features/order/orderApi";
+import Bike from "@/components/loaders/Bike";
 
 const Checkout = () => {
   const { id } = useParams();
-  const { data } = useGetAllProductsQuery(undefined);
-  const product = data?.data?.find((item) => item._id === id);
+  const navigate = useNavigate();
+  const { data } = useGetSingleProductQuery(id);
+  const product = data?.data;
   const user: User = useSelector(currentUser) ?? {} as User;
 
   const [quantity, setQuantity] = useState(1);
   const totalPrice = product?.price ? Number(product.price) * quantity : 0;
 
-  const handleOrderNow = () => {
+
+  const [createOrder, { isLoading }] = useCreateOrderMutation();
+  const {refetch } = useGetAllProductsQuery(undefined);
+
+  const handleOrderNow = async () => {
     if (!product) {
       toast.error("This product is out of stock right now.");
       return;
@@ -28,15 +35,27 @@ const Checkout = () => {
       return;
     }
 
-    console.log({
+    const orderInfo = {
       email: user?.email,
-      productId: id,
+      product: id!,
       quantity,
       totalPrice,
-    });
-
+    };
+    console.log(orderInfo);
+    await createOrder(orderInfo).unwrap();
+    refetch();
     toast.success("Order placed successfully!");
+    navigate(`/all-products/${id}`);
   };
+
+
+    if (isLoading) {
+      return (
+        <div className="flex justify-center items-center">
+          <Bike />
+        </div>
+      );
+    }
 
   return (
     <div className="container mx-auto px-4 py-8 flex justify-center">

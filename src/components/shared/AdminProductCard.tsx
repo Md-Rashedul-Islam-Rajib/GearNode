@@ -9,10 +9,30 @@ import { TProduct } from "@/types/form.types";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router";
 import { ShimmerButton } from "../ui/shimmer-button";
+import { useState } from "react";
+import { useDeleteProductMutation } from "@/redux/features/products/productApi";
 
-const ProductCard: React.FC<{ item: TProduct }> = ({ item }) => {
+const AdminProductCard: React.FC<{ item: TProduct }> = ({ item }) => {
   const imageSrc =
     item?.image instanceof File ? URL.createObjectURL(item.image) : item?.image;
+
+  const [deleteProduct, { isLoading }] = useDeleteProductMutation();
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleDelete = async () => {
+    if (window.confirm(`Are you sure you want to delete "${item?.name}"?`)) {
+      setIsDeleting(true);
+      try {
+        await deleteProduct(item._id).unwrap();
+        alert("Product deleted successfully!");
+      } catch (error) {
+        console.error("Failed to delete product:", error);
+        alert("Failed to delete product. Please try again.");
+      } finally {
+        setIsDeleting(false);
+      }
+    }
+  };
 
   return (
     <MagicCard
@@ -74,29 +94,34 @@ const ProductCard: React.FC<{ item: TProduct }> = ({ item }) => {
           {item?.price ? `${item.price} BDT` : "Price Not Available"}
         </p>
 
-        {/* Add to Cart Button */}
-
-        <Link to={`/all-products/${item?._id}`}>
-          <ShimmerButton className="shadow-2xl mx-auto" background="#34373e" shimmerSize="0.3em">
+        {/* Edit Button */}
+        <Link to={`/admin/all-products/${item?._id}`}>
+          <ShimmerButton
+            className="shadow-2xl mx-auto mb-2"
+            background="#34373e"
+            shimmerSize="0.3em"
+          >
             <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg">
-              View Details
+              Edit Details
             </span>
           </ShimmerButton>
         </Link>
 
-        {/* <button
+        {/* Delete Button */}
+        <button
           className={`px-4 py-2 w-full text-sm font-medium rounded-lg ${
-            item?.inStock
-              ? "bg-blue-600 text-white hover:bg-blue-700"
-              : "bg-gray-300 text-gray-500 cursor-not-allowed"
+            isDeleting || isLoading
+              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+              : "bg-red-600 text-white hover:bg-red-700"
           }`}
-          disabled={!item?.inStock}
+          onClick={handleDelete}
+          disabled={isDeleting || isLoading}
         >
-          {item?.inStock ? "Add to Cart" : "Out of Stock"}
-        </button> */}
+          {isDeleting || isLoading ? "Deleting..." : "Delete Product"}
+        </button>
       </CardContent>
     </MagicCard>
   );
 };
 
-export default ProductCard;
+export default AdminProductCard;

@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="bg-slate-700 text-white py-10 px-5">
       <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
         <div>
-          <img src={logo} alt="" />
+          <img src={logo} alt="GearNode Logo" className="w-52 mx-auto md:w-auto" />
           <div className="flex justify-evenly my-4">
             <Icon icon="ic:outline-facebook" width="32" height="32" />
             <Icon icon="mdi:gmail" width="32" height="32" />

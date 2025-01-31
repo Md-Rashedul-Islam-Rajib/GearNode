@@ -15,29 +15,59 @@ const productApi = baseApi.injectEndpoints({
     }),
     // get all products
     getAllProducts: builder.query({
+      providesTags: ["PRODUCTS", "UPDATE"],
       query: (args) => {
-        console.log(args);
         const params = new URLSearchParams();
 
-        if (args) {
+        if (args && args.length > 0) {
           args.forEach((item: TQueryParam) => {
-            params.append(item.name, item.value as string);
+            params.append(item.name, String(item.value));
           });
+          return {
+            url: `/products?${params.toString()}`,
+            method: "GET",
+          };
         }
+
         return {
           url: "/products",
           method: "GET",
-          params: params,
         };
       },
-      transformResponse: (response: TResponseRedux<TProduct[]>) => {
-        return {
-          data: response?.data,
-        //   meta: response?.meta,
-        };
-      },
+      transformResponse: (response: TResponseRedux<TProduct[]>) => ({
+        data: response?.data,
+      }),
+    }),
+    getSingleProduct: builder.query({
+      query: (id) => ({
+        url: `/products/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["UPDATE", "PRODUCTS"],
+    }),
+
+    updateProduct: builder.mutation({
+      query: ({ id, updatedData }) => ({
+        url: `/products/${id}`,
+        method: "PUT",
+        body: updatedData,
+      }),
+      invalidatesTags: ["UPDATE", "PRODUCT"],
+    }),
+    deleteProduct: builder.mutation({
+      query: (id) => ({
+        url: `/products/${id}`,
+        method: "DELETE",
+      }),
     }),
   }),
 });
 
-export const { useCreateProductMutation, useGetAllProductsQuery } = productApi;
+export const {
+  useCreateProductMutation,
+  useGetAllProductsQuery,
+  useDeleteProductMutation,
+  useUpdateProductMutation,
+  useLazyGetAllProductsQuery,
+  useGetSingleProductQuery
+} = productApi;
