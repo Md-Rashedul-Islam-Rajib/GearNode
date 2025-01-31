@@ -16,6 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Bike from "@/components/loaders/Bike";
 import { toast } from "sonner";
+import { User } from "@/types/auth.types";
 
 const UserManagement = () => {
   const { data, isLoading, error } = useGetAllUsersQuery(undefined);
@@ -72,24 +73,24 @@ const UserManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {users?.map((user: any) => (
-              <tr key={user._id} className="border-b">
+            {users?.map((user: User) => (
+              <tr key={user?._id} className="border-b">
                 <td className="py-3 px-6">
                   <img
-                    src={user.image}
-                    alt={user.name}
+                    src={user?.image}
+                    alt={user?.name}
                     className="w-12 h-12 rounded-full border"
                   />
                 </td>
-                <td className="py-3 px-6">{user.name}</td>
-                <td className="py-3 px-6">{user.email}</td>
+                <td className="py-3 px-6">{user?.name}</td>
+                <td className="py-3 px-6">{user?.email}</td>
                 <td className="py-3 px-6">
                   <Badge className="bg-blue-100 text-blue-600 px-3 py-1 text-xs">
-                    {user.role}
+                    {user?.role}
                   </Badge>
                 </td>
                 <td className="py-3 px-6">
-                  {user.isBlocked ? (
+                  {user?.isBlocked ? (
                     <Badge className="bg-red-100 text-red-600 px-3 py-1 text-xs">
                       Blocked
                     </Badge>
@@ -110,8 +111,8 @@ const UserManagement = () => {
                         }`}
                         onClick={() =>
                           setSelectedUser({
-                            id: user._id,
-                            isBlocked: user.isBlocked,
+                            id: user?._id as string,
+                            isBlocked: user?.isBlocked as boolean,
                           })
                         }
                         disabled={isBlocking}

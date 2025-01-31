@@ -1,9 +1,12 @@
 import { ReactNode } from "react";
 
 export type User = {
+  _id?: string;
+  image?: string;
   name?: string;
   email: string;
   password?: string;
+  isBlocked?: boolean; 
   role: "customer" | "admin";
   iat: number;
   exp: number;
