@@ -25,6 +25,6 @@ export type TRoute = {
 };
 
 export type TAuthState = {
-  user: null | User;
-  token: null | string;
+  user:  User | null;
+  token:  string | null;
 };

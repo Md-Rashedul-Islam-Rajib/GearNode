@@ -3,7 +3,6 @@ import { useAppSelector } from "@/redux/hooks";
 import { currentUser } from "@/redux/features/auth/authSlice";
 import {
   useGetAllOrdersQuery,
-  useCancelOrderMutation,
   useUpdateOrderMutation,
 } from "@/redux/features/order/orderApi";
 import {
@@ -20,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TOrder } from "@/types/order.types";
 import { toast } from "sonner";
+import { TProduct } from "@/types/form.types";
 
 const CustomerOrders = () => {
   const { data, isLoading, refetch } = useGetAllOrdersQuery(undefined);
@@ -37,7 +37,7 @@ const CustomerOrders = () => {
   }
 
   const allData: TOrder[] = data?.data || [];
-  const orders = allData.filter((item) => item.email === user.email);
+  const orders = allData.filter((item) => item.email === user?.email);
 
   // Filter Orders Based on Status
   const filteredOrders =
@@ -55,6 +55,7 @@ const CustomerOrders = () => {
       toast.warning("Order has been cancelled.");
       refetch();
     } catch (error) {
+            console.error(error);
       toast.error("Failed to cancel order");
     }
   };
@@ -101,7 +102,7 @@ const CustomerOrders = () => {
                 filteredOrders.map((order) => (
                   <TableRow key={order._id} className="hover:bg-gray-100">
                     <TableCell className="truncate max-w-[120px]">
-                      {order.product.name}
+                      {(order.product as TProduct).name}
                     </TableCell>
                     <TableCell className="truncate">{order.email}</TableCell>
                     <TableCell className="text-center">
@@ -137,7 +138,7 @@ const CustomerOrders = () => {
                       <Button
                         variant="destructive"
                         size="sm"
-                        onClick={() => handleCancelOrder(order._id)}
+                        onClick={() => handleCancelOrder(order._id as string)}
                         disabled={order.isCancelled} // Disable if already cancelled
                       >
                         {order.isCancelled ? "Cancelled" : "Cancel"}

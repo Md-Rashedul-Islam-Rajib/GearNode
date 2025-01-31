@@ -2,7 +2,7 @@ import MainLayout from "./components/layouts/MainLayout";
 import UserLayout from "./components/layouts/UserLayout";
 import { currentUser } from "./redux/features/auth/authSlice"
 import { useAppSelector } from "./redux/hooks"
-import { User } from "./types/auth.types";
+
 
 
 function App() {

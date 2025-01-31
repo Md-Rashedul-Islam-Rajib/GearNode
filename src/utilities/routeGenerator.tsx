@@ -1,6 +1,7 @@
+import { TRoute } from "@/types/auth.types";
 import { ReactNode } from "react";
 import { Route } from "react-router";
-import { TRoute } from "../types/route.types";
+
 
 
 

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { currentUser } from "@/redux/features/auth/authSlice";
 import { useGetAllProductsQuery, useGetSingleProductQuery } from "@/redux/features/products/productApi";
 import { useAppSelector } from "@/redux/hooks";
+import { TProduct } from "@/types/form.types";
 import { Link, useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 
@@ -11,8 +12,8 @@ const ProductDetail = () => {
   
   const { id } = useParams();
   const { data, isLoading } = useGetSingleProductQuery(id);
-  const { allData } = useGetAllProductsQuery(undefined);
-  const otherProducts = allData?.data?.filter((item) => item._id !== id);
+  const { data: allData } = useGetAllProductsQuery(undefined);
+  const otherProducts = allData?.data?.filter((item: TProduct) => item._id !== id);
   console.log(otherProducts)
   const product = data?.data
   const user = useAppSelector(currentUser);

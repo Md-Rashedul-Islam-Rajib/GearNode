@@ -24,6 +24,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Gear from "@/components/loaders/Gear";
 import { useNavigate } from "react-router";
+import { User } from "@/types/auth.types";
 
 // Define Zod validation schema
 const profileSchema = z.object({
@@ -39,7 +40,7 @@ const UpdateProfile = () => {
   const navigate = useNavigate();
   const user = useAppSelector(currentUser);
 
-  const profile = data?.data.find((item) => user?.email === item.email);
+  const profile = data?.data.find((item : User) => user?.email === item.email);
 
   const [updateProfile, { isLoading }] = useUpdateProfileMutation();
 

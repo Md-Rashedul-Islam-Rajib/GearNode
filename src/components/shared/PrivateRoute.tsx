@@ -2,7 +2,7 @@ import { Navigate } from "react-router";
 // import { PrivateRoute, User } from "../../types/route.types";
 import { useAppSelector } from "@/redux/hooks";
 import { currentUser, currentUserToken } from "@/redux/features/auth/authSlice";
-import { PrivateRoute, User } from "@/types/auth.types";
+import { PrivateRoute } from "@/types/auth.types";
 
 const ProtectedRoute: React.FC<PrivateRoute> = ({
   allowedRoles = [],

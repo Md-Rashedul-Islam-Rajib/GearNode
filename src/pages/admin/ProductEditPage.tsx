@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
+
 import {
-  useGetAllProductsQuery,
   useGetSingleProductQuery,
-  useLazyGetAllProductsQuery,
+
   useUpdateProductMutation,
 } from "@/redux/features/products/productApi";
 import { useParams, useNavigate } from "react-router";

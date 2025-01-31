@@ -1,17 +1,16 @@
-import { useState } from "react";
 import {
-    useChangePasswordMutation,
-  useGetAllUsersQuery,
+  useChangePasswordMutation,
 } from "@/redux/features/auth/authApi";
 import { currentUser } from "@/redux/features/auth/authSlice";
 import { useAppSelector } from "@/redux/hooks";
+import { useState } from "react";
 import { toast } from "sonner";
 
 const ChangePassword = () => {
-  const { data } = useGetAllUsersQuery(undefined);
+  // const { data } = useGetAllUsersQuery(undefined);
   const user = useAppSelector(currentUser);
-  const profile = data?.data.find((item) => user?.email === item.email);
-  const [changePassword, { isLoading }] = useChangePasswordMutation()
+  // const profile = data?.data.find((item) => user?.email === item.email);
+  const [changePassword, { isLoading }] = useChangePasswordMutation();
 
   // State for password fields and errors
   const [formData, setFormData] = useState({
@@ -36,12 +35,11 @@ const ChangePassword = () => {
       return;
     }
 
-      
-      const updatedData = {
-          email: user?.email,
-          currentPassword: formData.currentPassword,
-        newPassword: formData.newPassword,
-      };
+    const updatedData = {
+      email: user?.email,
+      currentPassword: formData.currentPassword,
+      newPassword: formData.newPassword,
+    };
     try {
       await changePassword(updatedData).unwrap();
       toast.success("Password changed successfully!");
@@ -49,8 +47,9 @@ const ChangePassword = () => {
         currentPassword: "",
         newPassword: "",
         confirmPassword: "",
-      }); // Reset fields
+      }); 
     } catch (error) {
+      console.error(error)
       setError("Error updating password. Please try again.");
     }
   };

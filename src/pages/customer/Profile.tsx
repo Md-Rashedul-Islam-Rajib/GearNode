@@ -1,6 +1,7 @@
 import { useGetAllUsersQuery } from "@/redux/features/auth/authApi"
 import { currentUser } from "@/redux/features/auth/authSlice";
 import { useAppSelector } from "@/redux/hooks";
+import { User } from "@/types/auth.types";
 
 
 const Profile = () => {
@@ -8,7 +9,7 @@ const Profile = () => {
     const { data } = useGetAllUsersQuery(undefined);
     const user = useAppSelector(currentUser);
 
-    const profile = data?.data.find((item) => user?.email === item.email);
+    const profile = data?.data.find((item : User) => user?.email === item.email);
     console.log(profile)
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-xl mt-10">

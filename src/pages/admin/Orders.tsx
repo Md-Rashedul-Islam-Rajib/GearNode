@@ -25,6 +25,7 @@ import {
 import { toast } from "sonner";
 import { useState } from "react";
 import { TOrder, TUpdateOrder } from "@/types/order.types";
+import { TProduct } from "@/types/form.types";
 
 
 const Orders = () => {
@@ -129,7 +130,7 @@ const Orders = () => {
                 filteredOrders.map((order) => (
                   <TableRow key={order._id} className="hover:bg-gray-100">
                     <TableCell className="truncate max-w-[120px]">
-                      {order.product?.name}
+                      {(order?.product as TProduct)?.name}
                     </TableCell>
                     <TableCell className="truncate">{order.email}</TableCell>
                     <TableCell className="text-center">
