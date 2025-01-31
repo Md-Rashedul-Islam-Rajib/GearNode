@@ -134,7 +134,7 @@ const ProductDetail = () => {
       </div>
 
       {/* Related Products */}
-      <div className="mt-12">
+      {/* <div className="mt-12">
         <h3 className="text-2xl font-bold mb-4">Related Products</h3>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {otherProducts?.slice(0, 3).map((item) => (
@@ -162,7 +162,7 @@ const ProductDetail = () => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
 
 
     </div>
