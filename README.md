@@ -1,83 +1,91 @@
+
 # GEARNODE
 
--[GEARNODE](https://gear-node.vercel.app)
+[GEARNODE](https://gear-node.vercel.app)
 
-Overview : <br/> <br/>
-GEARNODE is a e-commerce site focus on motor bikes specially scooter segment.It has wide variety of scooter to offer their consumers.
+## Overview
 
-Features: 
+GEARNODE is an e-commerce site focused on motorbikes, specifically the scooter segment. It offers a wide variety of scooters to consumers.
 
-1. User can register and login generate JWT token with a default role (customer).
-2. Anyone can explore all of the products
-3. Only logged in customer make purchase any product within the stock.
-4. Customer make manage their orders and update profile info.
-5. Admin can manage all the users (customers), their orders and GEARNODE products.
+## Features
 
+1. Users can register and login, generating a JWT token with a default role (customer).
+2. Anyone can explore all available products.
+3. Only logged-in customers can purchase products within stock.
+4. Customers can manage their orders and update profile information.
+5. Admins can manage all users (customers), their orders, and GEARNODE products.
 
-Technologies Used:
+## Technologies Used
 
-- Front End : React, Vite, Tailwind CSS, TypeScript, Shadcn UI
-- Back End : NodeJs, Express, TypeScript, Mongoose
-- Data Base :  MongoDB
-- State Management : Redux, RTK Query
+- **Frontend**: React, Vite, Tailwind CSS, TypeScript, ShadCN UI
+- **Backend**: Node.js, Express, TypeScript, Mongoose
+- **Database**: MongoDB
+- **State Management**: Redux, RTK Query
 
-
-Resources :
+## Resources
 
 - [React Router](https://reactrouter.com/en/main)
-- [Shadcn UI](http://ui.shadcn.com)
-- [React Hook Form](https://swiperjs.com/react)
+- [ShadCN UI](http://ui.shadcn.com)
+- [React Hook Form](https://reacthookform.com/)
 - [Lottie React](https://lottiereact.com/)
-- [TailwindCSS](https://tailwindcss.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
 - [Redux](https://redux.dev)
 - [RTK Query](https://redux-toolkit.js.org/rtk-query/overview)
 
-
 ## How to Clone and Run
 
-1. **Clone Repositories**
-   - Clone both repositories to your computer:
-     ```bash
-     git clone https://github.com/Md-Rashedul-Islam-Rajib/GearNode
-     git clone https://github.com/Md-Rashedul-Islam-Rajib/GearNode-The-Backend-Engine-for-Bike-Enthusiasts
-     ```
+### 1. Clone Repositories
 
+Clone both the client and server repositories to your computer:
 
-2. **Configure Backend Credentials**
-   - Replace your necessary environment variables in `.env` file in the server repository like this
-   ```bash
-   PORT=Your Port
+```bash
+git clone https://github.com/Md-Rashedul-Islam-Rajib/GearNode
+git clone https://github.com/Md-Rashedul-Islam-Rajib/GearNode-The-Backend-Engine-for-Bike-Enthusiasts
+```
+
+### 2. Configure Backend Credentials
+
+Replace the necessary environment variables in the `.env` file of the server repository:
+
+```bash
+PORT=Your Port
 DB_URL=mongodb credentials
 SALT_ROUND=12
 JWT_ACCESS_SECRET=your secret
 JWT_REFRESH_SECRET=your secret
 JWT_ACCESS_EXPIRES_IN=1d
 JWT_REFRESH_EXPIRES_IN=10d
-   ```
+```
 
-   - Add your localhost URL to CORS in `app.ts` file in the server repository.
+- Add your localhost URL to CORS in the `app.ts` file in the server repository.
 
-3. **Install Dependencies**
-   - Open both the clients and server repository folders in the command line interface (CLI).
-   - Install necessary npm packages by running:
-     ```bash
-     pnpm install
-     ```
+### 3. Install Dependencies
 
-4. **Start the Server**
-   - Navigate to the server repository folder and start the server using nodemon:
-     ```bash
-     cd GearNode-The-Backend-Engine-for-Bike-Enthusiasts
-     pnpm dev
-     ```
+Open both the client and server repository folders in the command line interface (CLI) and install the necessary npm packages by running:
 
-6. **Start the Client**
-   - Navigate to the clients repository folder and start the client development server:
-     ```bash
-     cd GearNode
-     pnpm dev
-     ```
+```bash
+pnpm install
+```
 
-     admin credentials: 
-     email : admin@gearnode.com
-     password : 123456
+### 4. Start the Server
+
+Navigate to the server repository folder and start the server using `nodemon`:
+
+```bash
+cd GearNode-The-Backend-Engine-for-Bike-Enthusiasts
+pnpm dev
+```
+
+### 5. Start the Client
+
+Navigate to the client repository folder and start the client development server:
+
+```bash
+cd GearNode
+pnpm dev
+```
+
+## Admin Credentials
+
+- **Email**: admin@gearnode.com
+- **Password**: 123456
