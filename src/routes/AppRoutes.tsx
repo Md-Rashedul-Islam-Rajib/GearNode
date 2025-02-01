@@ -26,6 +26,7 @@ import AdminAllProducts from "@/pages/admin/AdminAllProducts";
 import ProductEditPage from "@/pages/admin/ProductEditPage";
 import AdminLayout from "@/components/layouts/AdminLayout";
 import UserManagement from "@/pages/admin/UserManagement";
+import ErrorPage from "@/pages/error/ErrorPage";
 
 const AppRoutes = () => {
   return (
@@ -42,7 +43,6 @@ const AppRoutes = () => {
         <Route path="about" element={<About />} />
         <Route path="all-products" element={<AllProducts />} />
         <Route path="all-products/:id" element={<ProductDetail />} />
-        
 
         {/* Customer Protected Routes inside MainLayout */}
         <Route
@@ -59,10 +59,12 @@ const AppRoutes = () => {
           <Route path="profile" element={<Profile />} />
           <Route path="update-profile" element={<UpdateProfile />} />
           <Route path="change-password" element={<ChangePassword />} />
+        <Route path="*" element={<ErrorPage />} />
         </Route>
 
         <Route
-          path="admin/*" element={
+          path="admin/*"
+          element={
             <ProtectedRoute allowedRoles={["admin"]}>
               <AdminLayout />
             </ProtectedRoute>
@@ -74,13 +76,14 @@ const AppRoutes = () => {
           <Route path="profile" element={<Profile />} />
           <Route path="orders" element={<Orders />} />
           <Route path="user-management" element={<UserManagement />} />
+          <Route path="create-product" element={<CreateProduct />} />
           <Route path="update-profile" element={<UpdateProfile />} />
           <Route path="change-password" element={<ChangePassword />} />
-        <Route path="create-product" element={<CreateProduct />} />
+      <Route path="*" element={<ErrorPage />} />
         </Route>
-
-
       </Route>
+
+      <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
 };

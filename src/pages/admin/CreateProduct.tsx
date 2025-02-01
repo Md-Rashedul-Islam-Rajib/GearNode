@@ -15,10 +15,12 @@ import { uploadImage } from "@/utilities/imageUploader";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import Gear from "@/components/loaders/Gear";
 import { useCreateProductMutation } from "@/redux/features/products/productApi";
+import { useNavigate } from "react-router";
 
 const CreateProduct = () => {
    
-  const [createProduct, {isLoading }] = useCreateProductMutation();
+  const [createProduct, { isLoading }] = useCreateProductMutation();
+  const navigate = useNavigate();
   const form = useForm<TProduct>({
     resolver: zodResolver(productZodSchema),
     defaultValues: {
@@ -63,7 +65,7 @@ const CreateProduct = () => {
       }
       await createProduct(productInfo).unwrap();
       form.reset();
-      
+      navigate(`/admin/all-products`);
     } catch (err) {
       console.log(err)
     };

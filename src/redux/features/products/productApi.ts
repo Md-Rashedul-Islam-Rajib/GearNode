@@ -59,6 +59,7 @@ const productApi = baseApi.injectEndpoints({
         url: `/products/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["UPDATE", "PRODUCT"],
     }),
   }),
 });

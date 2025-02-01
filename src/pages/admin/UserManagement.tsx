@@ -21,8 +21,10 @@ import { User } from "@/types/auth.types";
 const UserManagement = () => {
   const { data, isLoading, error } = useGetAllUsersQuery(undefined);
   const [blockUser, { isLoading: isBlocking }] = useBlockUserMutation();
-  const users = data?.data;
+  
 
+
+  const users = data?.data.filter((item: User) => item.role !== 'admin');
   // State for tracking selected user
   const [selectedUser, setSelectedUser] = useState<{
     id: string;

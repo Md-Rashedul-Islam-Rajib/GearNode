@@ -11,6 +11,17 @@ import { Link } from "react-router";
 import { ShimmerButton } from "../ui/shimmer-button";
 import { useState } from "react";
 import { useDeleteProductMutation } from "@/redux/features/products/productApi";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog"; // Importing Dialog components
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 const AdminProductCard: React.FC<{ item: TProduct }> = ({ item }) => {
   const imageSrc =
@@ -18,19 +29,19 @@ const AdminProductCard: React.FC<{ item: TProduct }> = ({ item }) => {
 
   const [deleteProduct, { isLoading }] = useDeleteProductMutation();
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false); // Manage dialog state
 
   const handleDelete = async () => {
-    if (window.confirm(`Are you sure you want to delete "${item?.name}"?`)) {
-      setIsDeleting(true);
-      try {
-        await deleteProduct(item._id).unwrap();
-        alert("Product deleted successfully!");
-      } catch (error) {
-        console.error("Failed to delete product:", error);
-        alert("Failed to delete product. Please try again.");
-      } finally {
-        setIsDeleting(false);
-      }
+    setIsDeleting(true);
+    try {
+      await deleteProduct(item._id).unwrap();
+      toast.success("Product deleted successfully!");
+    } catch (error) {
+      console.error("Failed to delete product:", error);
+      toast.error("Failed to delete product. Please try again.");
+    } finally {
+      setIsDeleting(false);
+      setIsDialogOpen(false); // Close dialog after deletion
     }
   };
 
@@ -107,18 +118,49 @@ const AdminProductCard: React.FC<{ item: TProduct }> = ({ item }) => {
           </ShimmerButton>
         </Link>
 
-        {/* Delete Button */}
-        <button
-          className={`px-4 py-2 w-full text-sm font-medium rounded-lg ${
-            isDeleting || isLoading
-              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-              : "bg-red-600 text-white hover:bg-red-700"
-          }`}
-          onClick={handleDelete}
-          disabled={isDeleting || isLoading}
-        >
-          {isDeleting || isLoading ? "Deleting..." : "Delete Product"}
-        </button>
+        {/* Delete Button with Dialog */}
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogTrigger asChild>
+            <button
+              className={`px-4 py-2 w-full text-sm font-medium rounded-lg ${
+                isDeleting || isLoading
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-red-600 text-white hover:bg-red-700"
+              }`}
+              disabled={isDeleting || isLoading}
+            >
+              {isDeleting || isLoading ? "Deleting..." : "Delete Product"}
+            </button>
+          </DialogTrigger>
+
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle>Confirm Deletion</DialogTitle>
+              <DialogDescription>
+                Are you sure you want to delete <strong>"{item?.name}"</strong>?
+                This action cannot be undone.
+              </DialogDescription>
+            </DialogHeader>
+
+            <DialogFooter>
+              <Button
+                variant="outline"
+                onClick={() => setIsDialogOpen(false)}
+                disabled={isDeleting || isLoading}
+              >
+                Cancel
+              </Button>
+
+              <Button
+                variant="destructive"
+                onClick={handleDelete}
+                disabled={isDeleting || isLoading}
+              >
+                {isDeleting || isLoading ? "Deleting..." : "Confirm Delete"}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </CardContent>
     </MagicCard>
   );

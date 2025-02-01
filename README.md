@@ -1,50 +1,83 @@
-# React + TypeScript + Vite
+# GEARNODE
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+-[GEARNODE](https://gear-node.vercel.app)
 
-Currently, two official plugins are available:
+Overview : <br/> <br/>
+GEARNODE is a e-commerce site focus on motor bikes specially scooter segment.It has wide variety of scooter to offer their consumers.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Features: 
 
-## Expanding the ESLint configuration
+1. User can register and login generate JWT token with a default role (customer).
+2. Anyone can explore all of the products
+3. Only logged in customer make purchase any product within the stock.
+4. Customer make manage their orders and update profile info.
+5. Admin can manage all the users (customers), their orders and GEARNODE products.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- Configure the top-level `parserOptions` property like this:
+Technologies Used:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- Front End : React, Vite, Tailwind CSS, TypeScript, Shadcn UI
+- Back End : NodeJs, Express, TypeScript, Mongoose
+- Data Base :  MongoDB
+- State Management : Redux, RTK Query
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Resources :
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- [React Router](https://reactrouter.com/en/main)
+- [Shadcn UI](http://ui.shadcn.com)
+- [React Hook Form](https://swiperjs.com/react)
+- [Lottie React](https://lottiereact.com/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [Redux](https://redux.dev)
+- [RTK Query](https://redux-toolkit.js.org/rtk-query/overview)
+
+
+## How to Clone and Run
+
+1. **Clone Repositories**
+   - Clone both repositories to your computer:
+     ```bash
+     git clone https://github.com/Md-Rashedul-Islam-Rajib/GearNode
+     git clone https://github.com/Md-Rashedul-Islam-Rajib/GearNode-The-Backend-Engine-for-Bike-Enthusiasts
+     ```
+
+
+2. **Configure Backend Credentials**
+   - Replace your necessary environment variables in `.env` file in the server repository like this
+   ```bash
+   PORT=Your Port
+DB_URL=mongodb credentials
+SALT_ROUND=12
+JWT_ACCESS_SECRET=your secret
+JWT_REFRESH_SECRET=your secret
+JWT_ACCESS_EXPIRES_IN=1d
+JWT_REFRESH_EXPIRES_IN=10d
+   ```
+
+   - Add your localhost URL to CORS in `app.ts` file in the server repository.
+
+3. **Install Dependencies**
+   - Open both the clients and server repository folders in the command line interface (CLI).
+   - Install necessary npm packages by running:
+     ```bash
+     pnpm install
+     ```
+
+4. **Start the Server**
+   - Navigate to the server repository folder and start the server using nodemon:
+     ```bash
+     cd GearNode-The-Backend-Engine-for-Bike-Enthusiasts
+     pnpm dev
+     ```
+
+6. **Start the Client**
+   - Navigate to the clients repository folder and start the client development server:
+     ```bash
+     cd GearNode
+     pnpm dev
+     ```
+
+     admin credentials: 
+     email : admin@gearnode.com
+     password : 123456

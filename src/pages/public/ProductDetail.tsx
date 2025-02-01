@@ -4,7 +4,7 @@ import { currentUser } from "@/redux/features/auth/authSlice";
 import { useGetAllProductsQuery, useGetSingleProductQuery } from "@/redux/features/products/productApi";
 import { useAppSelector } from "@/redux/hooks";
 import { TProduct } from "@/types/form.types";
-import { Link, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 
 const ProductDetail = () => {
