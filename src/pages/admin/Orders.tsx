@@ -98,7 +98,7 @@ const Orders = () => {
         <h1 className="text-2xl font-bold text-gray-800 mb-4">Order List</h1>
 
         {/* Filter Buttons */}
-        <div className="flex gap-3 mb-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
           {["all", "pending", "processing", "shipped", "delivered"].map(
             (status) => (
               <Button

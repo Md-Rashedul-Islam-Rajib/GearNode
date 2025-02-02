@@ -21,7 +21,7 @@ interface TextAnimateProps extends MotionProps {
   /**
    * The text content to animate
    */
-  children: string;
+  children: string ;
   /**
    * The class name to be applied to the component
    */

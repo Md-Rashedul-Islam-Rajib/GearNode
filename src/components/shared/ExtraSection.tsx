@@ -18,17 +18,17 @@ const ExtraSection = () => {
         GET ADV 160
       </h1>
 
-      <div className="flex flex-col lg:flex-row lg:justify-between items-center lg:items-start space-y-8 lg:space-y-0 lg:space-x-8 mx-auto">
+      <div className="flex flex-col xl:flex-row xl:justify-between items-center lg:items-start gap-8 mx-auto px-4 md:px-8 lg:px-6">
         {/* ADV Image */}
         <img
           src={advRed}
           alt="Honda ADV 160"
-          className="lg:w-[850px] h-auto"
+          className="w-full sm:max-w-md md:max-w-[650px] lg:max-w-[850px]  h-auto object-contain"
         />
 
         {/* Specifications */}
-        <div>
-          <h1 className="text-xl sm:text-2xl font-semibold my-4 text-center">
+        <div className="w-full">
+          <h1 className="text-2xl sm:text-3xl font-semibold my-4 text-center xl:text-left">
             <span className="bg-slate-600 text-white rounded-xl px-4 py-2">
               Specifications
             </span>
@@ -170,3 +170,105 @@ const ExtraSection = () => {
 };
 
 export default ExtraSection;
+
+
+// <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+  // <CardContent className="bg-slate-200 rounded-xl mt-1">
+  //   {" "}
+  //   <strong>
+  //     <TextAnimate>Engine Type :</TextAnimate>
+  //   </strong>{" "}
+  //   <TextAnimate>4-Stroke, 4-Valve, SOHC, Liquid-Cooled, eSP+</TextAnimate>
+  // </CardContent>
+  // <CardContent className="bg-slate-200 rounded-xl mt-1">
+  //   {" "}
+  //   <strong>
+  //     <TextAnimate>Displacement :</TextAnimate>
+  //   </strong>{" "}
+  //   <TextAnimate>157cc</TextAnimate>
+  // </CardContent>
+  // <CardContent className="bg-slate-200 rounded-xl mt-1">
+  //   {" "}
+  //   <strong>
+  //     <TextAnimate>Starting System :</TextAnimate>
+  //   </strong>
+  //   <TextAnimate>Electric</TextAnimate>
+  // </CardContent>
+  // <CardContent className="bg-slate-200 rounded-xl mt-1">
+  //   {" "}
+  //   <strong>
+  //     <TextAnimate>Break Type :</TextAnimate>
+  //   </strong>{" "}
+  //   <TextAnimate>Hydraulic Disc with ABS both front and rear</TextAnimate>
+  // </CardContent>
+  // <CardContent className="bg-slate-200 rounded-xl mt-1">
+  //   {" "}
+  //   <strong>
+  //     <TextAnimate>Ignition System :</TextAnimate>{" "}
+  //   </strong>
+  //   <TextAnimate>Full Transisterized</TextAnimate>
+  // </CardContent>
+  // <CardContent className="bg-slate-200 rounded-xl mt-1">
+  //   {" "}
+  //   <strong>
+  //     <TextAnimate>Tire Size (Front):</TextAnimate>
+  //   </strong>
+  //   <TextAnimate> 110/80-14M/C 53P (Tubeless)</TextAnimate>
+  // </CardContent>
+  // <CardContent className="bg-slate-200 rounded-xl mt-1">
+  //   {" "}
+  //   <strong>
+  //     <TextAnimate>Tire Size (Rear):</TextAnimate>
+  //   </strong>{" "}
+  //   <TextAnimate>130/70-13M/C 57P (Tubeless)</TextAnimate>
+  // </CardContent>
+  // <CardContent className="bg-slate-200 rounded-xl mt-1">
+  //   {" "}
+  //   <strong>
+  //     <TextAnimate>Seat Height:</TextAnimate>
+  //   </strong>{" "}
+  //   <TextAnimate>780 mm</TextAnimate>
+  // </CardContent>
+  // <CardContent className="bg-slate-200 rounded-xl mt-1">
+  //   {" "}
+  //   <strong>
+  //     <TextAnimate>Ground Clearance:</TextAnimate>
+  //   </strong>{" "}
+  //   <TextAnimate>165 mm</TextAnimate>
+  // </CardContent>
+  // <CardContent className="bg-slate-200 rounded-xl mt-1">
+  //   {" "}
+  //   <strong>
+  //     <TextAnimate>Maximum Torque:</TextAnimate>
+  //   </strong>{" "}
+  //   <TextAnimate>14.7 Nm @6500 rpm</TextAnimate>
+  // </CardContent>
+  // <CardContent className="bg-slate-200 rounded-xl mt-1">
+  //   {" "}
+  //   <strong>
+  //     <TextAnimate>Maximum Power :</TextAnimate>
+  //   </strong>{" "}
+  //   <TextAnimate>11.8 kW @8500 rpm</TextAnimate>
+  // </CardContent>
+  // <CardContent className="bg-slate-200 rounded-xl mt-1">
+  //   {" "}
+  //   <strong>
+  //     <TextAnimate>Overall Dimensions (L x W x H) :</TextAnimate>
+  //   </strong>{" "}
+  //   <TextAnimate>1,950 x 763 x 1,196 (mm)</TextAnimate>
+  // </CardContent>
+  // <CardContent className="bg-slate-200 rounded-xl mt-1">
+  //   {" "}
+  //   <strong>
+  //     <TextAnimate>Fuel Tank Capacity :</TextAnimate>
+  //   </strong>{" "}
+  //   <TextAnimate>8 L</TextAnimate>
+  // </CardContent>
+  // <CardContent className="bg-slate-200 rounded-xl mt-1">
+  //   {" "}
+  //   <strong>
+  //     <TextAnimate>Fuel Consumption :</TextAnimate>
+  //   </strong>{" "}
+  //   <TextAnimate>45.0 km/L</TextAnimate>
+  // </CardContent>
+// </div>;
