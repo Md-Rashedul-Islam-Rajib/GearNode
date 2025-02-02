@@ -26,11 +26,17 @@ const NavMenu = () => {
             </NavLink>
           )}
 
-          <NavLink to={"/all-products"}>
+          {!user ? <NavLink to={"/all-products"}>
+            <NavigationMenuItem className={navStyle}>
+              All Products
+            </NavigationMenuItem>
+          </NavLink> :
+            <NavLink to={`/${user?.role}/all-products`}>
             <NavigationMenuItem className={navStyle}>
               All Products
             </NavigationMenuItem>
           </NavLink>
+          }
           {/* <NavigationMenuItem className={navStyle}>Contact</NavigationMenuItem> */}
         </NavigationMenuList>
       </NavigationMenu>
